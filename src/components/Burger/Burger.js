@@ -11,7 +11,6 @@ const burger = (props) =>{
             })//[,]
         })
         .reduce((arr,el) => {
-            console.log(arr + " AND " + el)
             return arr.concat(el)
         }, []);
 

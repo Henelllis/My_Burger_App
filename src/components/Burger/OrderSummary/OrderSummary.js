@@ -1,29 +1,36 @@
-import React from 'react';
+import React, {Component} from 'react';
 import Aux from '../../../hoc/Auxillary';
 import Button from '../../UI/Button/Button';
 
-const orderSummary = (props) =>{
+class OrderSummary extends Component{
+    //this could be a functional component, doesnt have to be a class
+    componentWillUpdate(){
+        console.log('[OrderSummary] will update')
+    }
 
-    const ingredientSummary = Object.keys(props.ingredients)
-        .map( igKey => {
-            return (<li key={igKey}>
-                <span style ={{textTransform:'capitalize'}}>{igKey}</span>:{props.ingredients[igKey]}
-                 </li>);
-        });
+    render(){
 
-    return(
-        <Aux>
-            <h3> Your Order</h3>
-            <p>A delicious Burger with the following ingredients:</p>
-            <ul>
-                {ingredientSummary}
-            </ul>
-            <p><strong>Total Price: {props.price.toFixed(2)} </strong></p>
-            <p> Continue to Checkout??</p>
-            <Button buttonType='Danger'  clicked={props.purchaseCancel}>CANCEL</Button>
-            <Button buttonType='Success' clicked={props.purchaseConfirm }>CONFIRM</Button>
-        </Aux>
-    );
+        const ingredientSummary = Object.keys(this.props.ingredients)
+            .map( igKey => {
+                return (<li key={igKey}>
+                    <span style ={{textTransform:'capitalize'}}>{igKey}</span>:{this.props.ingredients[igKey]}
+                    </li>);
+            });
+
+        return(
+            <Aux>
+                <h3> Your Order</h3>
+                <p>A delicious Burger with the following ingredients:</p>
+                <ul>
+                    {ingredientSummary}
+                </ul>
+                <p><strong>Total Price: {this.props.price.toFixed(2)} </strong></p>
+                <p> Continue to Checkout??</p>
+                <Button buttonType='Danger'  clicked={this.props.purchaseCancel}>CANCEL</Button>
+                <Button buttonType='Success' clicked={this.props.purchaseConfirm }>CONFIRM</Button>
+            </Aux>
+        );
+    }
 };
 
-export default orderSummary;
+export default OrderSummary;
