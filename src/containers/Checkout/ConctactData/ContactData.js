@@ -99,6 +99,7 @@ class ContactData extends Component {
         let isValid = true;
 
         if(rules){
+
             if(rules.required){
                 isValid = value.trim() !== '' && isValid;
             }
@@ -110,6 +111,7 @@ class ContactData extends Component {
             if(rules.maxLength){
                 isValid = value.length <= rules.maxLength && isValid;
             }
+            
         }
 
 
