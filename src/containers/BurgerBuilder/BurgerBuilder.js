@@ -5,27 +5,22 @@ import Burger from '../../components/Burger/Burger';
 import BuildControls from '../../components/Burger/BuildControls/BuildControls';
 import Modal from '../../components/UI/Modal/Modal';
 import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
-import axiosInstance from '../../axios-orders';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import * as actionTypes from '../../store/actions/actionTypes';
 import * as burgerBuilderActions from '../../store/actions/index';
+import axiosInstance from '../../axios-orders';
+
 
 class BurgerBuilder extends Component{
 
     state ={
         purchasing: false,
-        loading:false,
-        error: null,
     }
 
     componentDidMount(){
         console.log(this.props)
-        // axiosInstance.get('https://react-my-burger-6433e.firebaseio.com/ingredients.json')
-        // .then(response => {
-        //     this.setState({ingredients: response.data});
-        // } )
-        // .catch(error =>{ this.setState({error: true})});
+
     }
 
     updatePurchasable(ingredients){
@@ -92,9 +87,7 @@ class BurgerBuilder extends Component{
                     purchaseCancel={this.purchaseCancelHandler}
                     purchaseConfirm={this.purchaseConfirmHandler}/>
         }
-        if(this.state.loading){
-            orderSummary = <Spinner/>;
-        }
+
 
         return (
             <Aux>
@@ -110,7 +103,8 @@ class BurgerBuilder extends Component{
 const mapStateToProps = state => {
     return {
         ings: state.ingredients,
-        ttlprc: state.totalPrice
+        ttlprc: state.totalPrice,
+        error: state.error
     };
 }
 
