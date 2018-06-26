@@ -33,6 +33,18 @@ const reducer = (state = intialState, action) => {
                     },
                     totalPrice: state.totalPrice - INGREDIENT_PRICES[action.payload.ingredientName]
                 };
+        case actionTypes.SET_INGREDIENTS:
+            console.log('Inside SET INGREDIENT REDUCER');
+            return{
+                ...state,
+                ingredients : action.payload.ingredients,
+                error:false
+            }
+        case actionTypes.FETCH_INGREDIENTS_FAILED:
+            return{
+                ...state,
+                error:true
+            }
         default:
                 return state;
     }
