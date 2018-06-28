@@ -15,7 +15,6 @@ const intialState = {
         case actionTypes.PURCHASE_BURGER_START:
             return  updateObject(state, {loading:true});
         case actionTypes.PURCHASED_BURGER_SUCCESS:
-
             const newOrder = updateObject(action.payload.orderData, { id: action.payload.orderId.name} );
             return updateObject(state , { loading:false,
                                             purchased:true,
