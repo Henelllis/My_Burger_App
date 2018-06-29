@@ -26,7 +26,7 @@ export const authFail = (error) => {
     };
 };
 
-export const auth = (email,password) => {
+export const auth = (email,password, isSignUp) => {
     return dispatch => {
         dispatch(authStart());
         const authData = {
@@ -35,7 +35,11 @@ export const auth = (email,password) => {
             returnSecureToken:true
         }
         console.log('[AUTHDATA]',authData)
-        axios.post('',authData)
+        let url = '';
+        if(!isSignUp){
+            url = '';
+        }
+        axios.post( url,authData)
         .then( response => {
             console.log('[SUCCESS]',response);
             dispatch(authSuccess(response.data));
