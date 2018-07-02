@@ -10,11 +10,10 @@ class Orders extends Component{
     
 
     componentDidMount(){
-        this.props.onOrderFetch();
+        this.props.onOrderFetch(this.props.token);
     }
 
     render(){
-        console.log('[ORDER]',this.props.orders)
         let orderSummary = <Spinner/>
 
         if(!this.props.loading){
@@ -39,13 +38,14 @@ class Orders extends Component{
 const mapStateToProps = (state) => {
     return {
         orders: state.order.orders,
-        loading: state.order.loading
+        loading: state.order.loading,
+        token : state.auth.token
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onOrderFetch : () => dispatch(actions.fetchOrders())
+        onOrderFetch : (token) => dispatch(actions.fetchOrders(token))
     }
 }
 
