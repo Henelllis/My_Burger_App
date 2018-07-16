@@ -17,7 +17,6 @@ export const authSuccess = (tokenId, userId) => {
     };
 };
 
-
 export const authFail = (error) => {
     return {
         type:actionTypes.AUTH_FAIL,
@@ -90,13 +89,9 @@ export const authCheckState = () =>{
                 dispatch(logout()); 
             }else{
                 const userId = localStorage.getItem('userId');
-
-
                 dispatch(authSuccess(token,userId));
                 dispatch(checkAuthTimeout((expirationDate.getTime() - new Date().getTime()) / 1000))
-            }
-            
-        }
-         
+            } 
+        }   
     };
 }
