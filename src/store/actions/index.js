@@ -12,6 +12,10 @@ export { purchaseBurger,
 export {
     auth,
     logout,
+    authFail,
+    authSuccess,
+    checkAuthTimeout,
+    authStart,
     setAuthRedirectPath,
     authCheckState,
     logoutSucceed

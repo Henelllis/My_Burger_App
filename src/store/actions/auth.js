@@ -1,4 +1,3 @@
-import axios from 'axios';
 import * as actionTypes from './actionTypes';
 
 export const authStart = () => {
@@ -42,40 +41,24 @@ export const logoutSucceed = () => {
 }
 
 export const checkAuthTimeout = (expTime) => {
+    console.log('[EXP TIME]' + expTime)
     return {
         type:actionTypes.AUTH_CHECK_TIMEOUT,
         payload:{
-            expTime
+            expTime: expTime
         }
     };
 };
 
 export const auth = (email,password, isSignUp) => {
-    return dispatch => {
-        dispatch(authStart());
-        const authData = {
-            email:email,
-            password:password,
-            returnSecureToken:true
+    return {
+        type: actionTypes.AUTH_USER,
+        payload:{
+            email,
+            password,
+            isSignUp
         }
-        let url = 'https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=AIzaSyBMfEes1aXTOr5JAklTKAGz8Xa4PDvwl6Y';
-        if(!isSignUp){
-            url = 'https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=AIzaSyBMfEes1aXTOr5JAklTKAGz8Xa4PDvwl6Y';
-        }
-        axios.post( url,authData)
-        .then( response => {
-            const expirationDate = new Date(new Date().getTime() + response.data.expiresIn * 1000);
-            localStorage.setItem('token', response.data.idToken);
-            localStorage.setItem('expirationDate', expirationDate );
-            localStorage.setItem('userId', response.data.localId );
-
-            dispatch(authSuccess(response.data.idToken,response.data.localId));
-            dispatch(checkAuthTimeout(response.data.expiresIn));
-        })
-        .catch(error => {
-            dispatch(authFail(error.response.data.error));
-        });
-    };
+    }
 } ;
 
 export const setAuthRedirectPath = (path) => {
@@ -97,6 +80,7 @@ export const authCheckState = () =>{
             }else{
                 const userId = localStorage.getItem('userId');
                 dispatch(authSuccess(token,userId));
+                console.log('DO I GET HIT IN AUTH CHECK STATE');
                 dispatch(checkAuthTimeout((expirationDate.getTime() - new Date().getTime()) / 1000))
             } 
         }   
