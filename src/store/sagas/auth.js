@@ -12,7 +12,6 @@ export function* logoutSaga ( action ) {
 };
 
 export function* checkAuthTimeoutSaga ( action ){
-    console.log('[ LOGOUT TIME ] ' + action.payload.expTime)
     yield delay(action.payload.expTime * 1000);
     yield put(actions.logout());
 };
@@ -30,7 +29,6 @@ export function* authUserSaga(action) {
     }
     try{
         const response = yield axios.post( url,authData)
-        console.log('[RESPONSE] : ' + response.data.expiresIn);
         const expirationDate = yield new Date(new Date().getTime() + response.data.expiresIn * 1000);
         yield localStorage.setItem('token', response.data.idToken);
         yield localStorage.setItem('expirationDate', expirationDate );

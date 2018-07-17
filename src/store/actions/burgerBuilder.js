@@ -28,15 +28,8 @@ export const fetchIngredientsFailed = () =>{
     };
 };
    
-
 export const initIngredients = () => {
-    return dispatch => {
-        axiosInstance.get('https://react-my-burger-6433e.firebaseio.com/ingredients.json')
-        .then(response => {
-            dispatch(setIngredients(response.data))
-        } )
-        .catch(error =>{ 
-            dispatch(fetchIngredientsFailed())
-        });
+    return {
+        type:actionTypes.INGREDIENTS_INIT
     };
 };
